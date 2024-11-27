@@ -58,3 +58,23 @@ if __name__ == "__main__":
     rf_classifier = load_classifier('trained_rf_classifier.pkl')
     rf_accuracy = evaluate_model(rf_classifier, X_test, y_test)
     print(f"随机森林模型的准确率: {rf_accuracy}")
+
+    # 加载贝叶斯分类器并评估
+    rf_classifier = load_classifier('trained_bayesian_classifier.pkl')
+    rf_accuracy = evaluate_model(rf_classifier, X_test, y_test)
+    print(f"贝叶斯分类器的准确率: {rf_accuracy}")
+
+    # 加载fisher分类器并评估
+    rf_classifier = load_classifier('trained_fisher_classifier.pkl')
+    rf_accuracy = evaluate_model(rf_classifier, X_test, y_test)
+    print(f"fisher分类器的准确率: {rf_accuracy}")
+
+    # 加载logistic_regression分类器并评估
+    rf_classifier = load_classifier('trained_logistic_regression_classifier.pkl')
+    rf_accuracy = evaluate_model(rf_classifier, X_test, y_test)
+    print(f"logistic_regression分类器的准确率: {rf_accuracy}")
+
+    # 加载perceptron分类器并评估
+    rf_classifier = load_classifier('trained_perceptron_classifier.pkl')
+    rf_accuracy = evaluate_model(rf_classifier, X_test, y_test)
+    print(f"perceptron分类器的准确率: {rf_accuracy}")
