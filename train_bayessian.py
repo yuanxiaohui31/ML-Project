@@ -3,7 +3,7 @@ import pickle
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
-
+from sklearn.model_selection import GridSearchCV, train_test_split
 
 def load_data(preprocessed_file, train_part):
     """
@@ -29,10 +29,20 @@ def train_bayesian_classifier(X_train, y_train):
     """
     使用朴素贝叶斯分类器训练模型。
     """
+    #classifier = GaussianNB()
+    #classifier.fit(X_train, y_train)
+    #return classifier
     classifier = GaussianNB()
-    classifier.fit(X_train, y_train)
-    return classifier
+    param_grid = {
+        'var_smoothing': np.logspace(0, -9, num=20)  # 以对数空间测试var_smoothing参数
+    }
 
+    # 使用GridSearchCV进行参数调优，交叉验证选择最优参数
+    grid_search = GridSearchCV(estimator=classifier, param_grid=param_grid, cv=10, scoring='accuracy', verbose=1)
+    grid_search.fit(X_train, y_train)
+    best_classifier = grid_search.best_estimator_
+    y_pred = best_classifier.predict(X_test)
+    return best_classifier
 
 def save_classifier(classifier, filename):
     """

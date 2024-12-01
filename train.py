@@ -49,10 +49,18 @@ def train_random_forest(X_train, y_train):
     """
     使用随机森林进行训练。
     """
+    #param_grid = {
+      ##  'n_estimators': [100, 200, 300],
+       # 'max_depth': [None, 10, 20, 30],
+       # 'min_samples_split': [2, 5, 10],
+    #}
     param_grid = {
         'n_estimators': [100, 200, 300],
-        'max_depth': [None, 10, 20, 30],
-        'min_samples_split': [2, 5, 10],
+        'max_depth': [None, 10, 20, 30, 40],
+        'min_samples_split': [2, 5, 10, 20],
+        'min_samples_leaf': [1, 2, 5, 10],
+        'max_features': ['auto', 'sqrt', 'log2', None],  # 自动选择特征数量
+        'bootstrap': [True, False]  # 是否采用自助法采样
     }
     rf = RandomForestClassifier()
     grid_search = GridSearchCV(estimator=rf, param_grid=param_grid, cv=5, scoring='accuracy')
