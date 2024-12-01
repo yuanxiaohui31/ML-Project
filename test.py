@@ -1,6 +1,8 @@
 import numpy as np
 import pickle
 from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import StandardScaler
+
 
 def load_data(preprocessed_file, train_part):
     """
@@ -40,41 +42,72 @@ def evaluate_model(best_classifier, X_test, y_test):
     accuracy = accuracy_score(y_test, y_pred)
     return accuracy
 
+def load_scaler(filename):
+    """
+    从文件加载标准化器（scaler）。
+    """
+    with open(filename, 'rb') as f:
+        scaler = pickle.load(f)
+    print(f"标准化器从 {filename} 加载成功")
+    return scaler
+
 
 # 主程序
 if __name__ == "__main__":
     preprocessed_file = 'preprocessed_data.pkl'
-    train_part = 1
+    # preprocessed_file = 'preprocessed_kpca_data.pkl'
+    # train_part = 1
+    train_part = 2
 
     # 加载测试集
     X_test, y_test = load_data(preprocessed_file, train_part)
 
-    # 加载 SVM 分类器并评估
-    svm_classifier = load_classifier('trained_svm_classifier.pkl')
-    svm_accuracy = evaluate_model(svm_classifier, X_test, y_test)
-    print(f"SVM 模型的准确率: {svm_accuracy}")
+    # # 加载 SVM 分类器并评估
+    # svm_classifier = load_classifier('trained_svm_classifier.pkl')
+    # svm_accuracy = evaluate_model(svm_classifier, X_test, y_test)
+    # print(f"SVM 模型的准确率: {svm_accuracy}")
+    #
+    # # 加载随机森林分类器并评估
+    # rf_classifier = load_classifier('trained_rf_classifier.pkl')
+    # rf_accuracy = evaluate_model(rf_classifier, X_test, y_test)
+    # print(f"随机森林模型的准确率: {rf_accuracy}")
+    #
+    # # 加载贝叶斯分类器并评估
+    # rf_classifier = load_classifier('trained_bayesian_classifier.pkl')
+    # rf_accuracy = evaluate_model(rf_classifier, X_test, y_test)
+    # print(f"贝叶斯分类器的准确率: {rf_accuracy}")
+    #
+    # # 加载fisher分类器并评估
+    # rf_classifier = load_classifier('trained_fisher_classifier.pkl')
+    # rf_accuracy = evaluate_model(rf_classifier, X_test, y_test)
+    # print(f"fisher分类器的准确率: {rf_accuracy}")
 
-    # 加载随机森林分类器并评估
-    rf_classifier = load_classifier('trained_rf_classifier.pkl')
-    rf_accuracy = evaluate_model(rf_classifier, X_test, y_test)
-    print(f"随机森林模型的准确率: {rf_accuracy}")
-
-    # 加载贝叶斯分类器并评估
-    rf_classifier = load_classifier('trained_bayesian_classifier.pkl')
-    rf_accuracy = evaluate_model(rf_classifier, X_test, y_test)
-    print(f"贝叶斯分类器的准确率: {rf_accuracy}")
-
-    # 加载fisher分类器并评估
-    rf_classifier = load_classifier('trained_fisher_classifier.pkl')
-    rf_accuracy = evaluate_model(rf_classifier, X_test, y_test)
-    print(f"fisher分类器的准确率: {rf_accuracy}")
+    # 加载fisher_kpca分类器并评估
+    # rf_classifier = load_classifier('trained_fisher_classifier_kpca.pkl')
+    # rf_accuracy = evaluate_model(rf_classifier, X_test, y_test)
+    # print(f"fisher_kpca分类器的准确率: {rf_accuracy}")
 
     # 加载logistic_regression分类器并评估
-    rf_classifier = load_classifier('trained_logistic_regression_classifier.pkl')
-    rf_accuracy = evaluate_model(rf_classifier, X_test, y_test)
-    print(f"logistic_regression分类器的准确率: {rf_accuracy}")
+    # scaler = load_scaler('scaler.pkl')
+    # X_test = scaler.transform(X_test)
+    # rf_classifier = load_classifier('trained_logistic_regression_classifier.pkl')
+    # rf_accuracy = evaluate_model(rf_classifier, X_test, y_test)
+    # print(f"logistic_regression分类器的准确率: {rf_accuracy}")
+
+    # # 加载logistic_regression_kpca分类器并评估
+    # scaler = load_scaler('scaler.pkl')
+    # X_test = scaler.transform(X_test)
+    # rf_classifier = load_classifier('trained_logistic_regression_classifier_kpca.pkl')
+    # rf_accuracy = evaluate_model(rf_classifier, X_test, y_test)
+    # print(f"logistic_regression_kpca分类器的准确率: {rf_accuracy}")
+
 
     # 加载perceptron分类器并评估
     rf_classifier = load_classifier('trained_perceptron_classifier.pkl')
     rf_accuracy = evaluate_model(rf_classifier, X_test, y_test)
     print(f"perceptron分类器的准确率: {rf_accuracy}")
+
+    # # 加载perceptron_kpca分类器并评估
+    # rf_classifier = load_classifier('trained_perceptron_classifier_kpca.pkl')
+    # rf_accuracy = evaluate_model(rf_classifier, X_test, y_test)
+    # print(f"perceptron_kpca分类器的准确率: {rf_accuracy}")
